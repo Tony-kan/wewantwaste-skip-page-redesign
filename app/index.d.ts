@@ -1,12 +1,3 @@
-declare interface CardProps {
-  title: string;
-  description: string;
-}
-
-declare interface CardListProps {
-  cards: CardProps[];
-}
-
 declare interface SkipProps {
   id: number;
   size: number;
@@ -22,4 +13,10 @@ declare interface SkipProps {
   updated_at: string;
   allowed_on_road: boolean;
   allows_heavy_waste: boolean;
+}
+
+declare interface ConfirmationModalProps {
+  skip: SkipProps;
+  onClose: () => void;
+  onContinue: () => void;
 }

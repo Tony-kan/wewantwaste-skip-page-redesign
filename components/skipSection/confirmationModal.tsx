@@ -1,0 +1,136 @@
+import React, { useState } from "react";
+import {
+  CheckCircleIcon,
+  XCircleIcon,
+  ChevronDownIcon,
+} from "@heroicons/react/24/outline";
+import { calculateTotalPrice } from "~/lib/utils";
+
+
+const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
+  skip,
+  onClose,
+  onContinue,
+}) => {
+  const [isDetailsOpen, setIsDetailsOpen] = useState(false);
+
+  return (
+    // Backdrop
+    <div
+      className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 transition-opacity"
+      aria-modal="true"
+      role="dialog"
+      onClick={onClose} // Close on backdrop click
+    >
+      {/* Modal Panel */}
+      <div
+        className="bg-white rounded-xl shadow-2xl w-full max-w-md transform transition-all"
+        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
+      >
+        {/* Header */}
+        <div className="p-6 border-b border-gray-200">
+          <h2 className="text-2xl font-bold text-gray-900" id="modal-title">
+            Confirm Your Selection
+          </h2>
+          <p className="text-gray-500">
+            Please review the details for your chosen skip.
+          </p>
+        </div>
+
+        {/* Body */}
+        <div className="p-6 space-y-4">
+          {/* Summary Details */}
+          <div className="grid grid-cols-3 text-center divide-x divide-gray-200 bg-gray-50 p-4 rounded-lg">
+            <div>
+              <p className="text-xs text-gray-500">Size</p>
+              <p className="font-bold text-lg text-gray-800">
+                {skip.size} Yard
+              </p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500">Hire Period</p>
+              <p className="font-bold text-lg text-gray-800">
+                {skip.hire_period_days} Days
+              </p>
+            </div>
+            <div>
+              <p className="text-xs text-gray-500">Price (Inc. VAT)</p>
+              <p className="font-bold text-lg text-green-600">
+                £{calculateTotalPrice(skip.price_before_vat, skip.vat)}
+              </p>
+            </div>
+          </div>
+
+          {/* Important Restrictions */}
+          <div>
+            <h3 className="font-semibold text-gray-800 mb-2">
+              Important Restrictions
+            </h3>
+            <ul className="space-y-2 text-sm border border-gray-200 p-3 rounded-md">
+              <li className="flex items-center gap-2">
+                {skip.allowed_on_road ? (
+                  <CheckCircleIcon className="h-5 w-5 text-green-500" />
+                ) : (
+                  <XCircleIcon className="h-5 w-5 text-red-500" />
+                )}
+                <span>Placeable on public roads</span>
+              </li>
+              <li className="flex items-center gap-2">
+                {skip.allows_heavy_waste ? (
+                  <CheckCircleIcon className="h-5 w-5 text-green-500" />
+                ) : (
+                  <XCircleIcon className="h-5 w-5 text-red-500" />
+                )}
+                <span>Allows heavy waste (soil/rubble)</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Collapsible Info */}
+          <div>
+            <button
+              onClick={() => setIsDetailsOpen(!isDetailsOpen)}
+              className="w-full flex justify-between items-center text-left text-sm font-medium text-gray-600 hover:text-gray-900"
+            >
+              <span>Important Information</span>
+              <ChevronDownIcon
+                className={`h-5 w-5 transform transition-transform ${
+                  isDetailsOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
+            <div
+              className={`mt-2 text-xs text-gray-500 overflow-hidden transition-all duration-300 ${
+                isDetailsOpen ? "max-h-40" : "max-h-0"
+              }`}
+            >
+              <p className="p-3 bg-gray-50 rounded-md">
+                Images are for illustration purposes only. Exact specifications
+                and included accessories may vary. All pricing and restrictions
+                are subject to our terms and conditions.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer with Actions */}
+        <div className="p-4 bg-gray-50 border-t border-gray-200 flex justify-end gap-3 rounded-b-xl">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
+          >
+            Go Back
+          </button>
+          <button
+            onClick={onContinue}
+            className="px-4 py-2 text-sm font-medium text-white bg-blue-600 border border-transparent rounded-md shadow-sm hover:bg-blue-700"
+          >
+            Continue
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ConfirmationModal;
