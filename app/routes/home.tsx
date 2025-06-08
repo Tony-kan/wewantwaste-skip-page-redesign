@@ -20,11 +20,9 @@ export default function Home() {
           Choose Your Skip Size
         </h1>
         <p className="mt-1 text-md leading-8 text-gray-600">
-          Select the skip size that best suits your needs.
+          Select the skip size that best suits your needs.Not Sure ? See our
+          size guide for help comparing options.
         </p>
-        {/* <p className="mt-1 text-sm font-medium text-gray-500">
-          For postcode: <span className="font-bold text-gray-700">NR32</span>
-        </p>{" "} */}
       </div>
 
       <SkipSizeGuide />
