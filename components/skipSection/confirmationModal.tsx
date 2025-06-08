@@ -1,11 +1,44 @@
+//Todo: Add confirmation modal, Add Framer-mootion animation
+
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import {
   CheckCircleIcon,
   XCircleIcon,
   ChevronDownIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { calculateTotalPrice } from "~/lib/utils";
 
+// Animation variants for the backdrop
+const backdropVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+// Animation variants for the modal panel
+const modalVariants = {
+  hidden: { y: "-20px", opacity: 0, scale: 0.98 },
+
+  visible: {
+    y: 0,
+    opacity: 1,
+    scale: 1,
+    transition: {
+      duration: 0.3,
+      ease: "easeOut",
+    },
+  },
+  exit: {
+    y: "20px",
+    opacity: 0,
+    scale: 0.98,
+    transition: {
+      duration: 0.2,
+      ease: "easeIn",
+    },
+  },
+};
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   skip,
@@ -16,25 +49,44 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
   return (
     // Backdrop
-    <div
+    <motion.div
       className="fixed inset-0 bg-black/70 flex items-center justify-center z-50 p-4 transition-opacity"
       aria-modal="true"
       role="dialog"
       onClick={onClose} // Close on backdrop click
+      variants={backdropVariants}
+      initial="hidden"
+      animate="visible"
+      exit="hidden"
+      transition={{ duration: 0.3 }}
     >
       {/* Modal Panel */}
-      <div
-        className="bg-white rounded-xl shadow-2xl w-full max-w-md transform transition-all"
+      <motion.div
+        className="bg-white/90 rounded-xl shadow-2xl w-full max-w-md transform transition-all"
         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
+        variants={modalVariants}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
       >
         {/* Header */}
-        <div className="p-6 border-b border-gray-200">
-          <h2 className="text-2xl font-bold text-gray-900" id="modal-title">
-            Confirm Your Selection
-          </h2>
-          <p className="text-gray-500">
-            Please review the details for your chosen skip.
-          </p>
+
+        <div className="flex justify-between items-center p-6 border-b border-gray-200">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900" id="modal-title">
+              Confirm Your Selection
+            </h2>
+            <p className="text-gray-500">
+              Please review the details for your chosen skip.
+            </p>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-1 rounded-full text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-colors"
+            aria-label="Close modal"
+          >
+            <XMarkIcon className="h-8 w-8 text-white font-extrabold rounded-lg  bg-blue-500" />
+          </button>
         </div>
 
         {/* Body */}
@@ -128,8 +180,8 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             Continue
           </button>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };
 
