@@ -57,6 +57,14 @@ The implementation follows modern React best practices using **React Router 7**.
 │ └── skip-selection/ # Components grouped by feature (e.g., ConfirmationModal)
 └── ...
 
+### Deployment link on vercel
+
+```bash
+
+https://wewantwaste-skip-page-redesign.vercel.app/
+
+```
+
 ### How to Run
 
 #### 1. Local Development
