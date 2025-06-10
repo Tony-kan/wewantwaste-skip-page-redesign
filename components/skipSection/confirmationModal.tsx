@@ -62,7 +62,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
     >
       {/* Modal Panel */}
       <motion.div
-        className="bg-white/90 rounded-xl shadow-2xl w-full max-w-md transform transition-all"
+        className="bg-[#303030] light:bg-white/90 rounded-xl shadow-2xl w-full max-w-md transform transition-all"
         onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
         variants={modalVariants}
         initial="hidden"
@@ -71,12 +71,15 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
       >
         {/* Header */}
 
-        <div className="flex justify-between items-center p-6 border-b border-gray-200">
+        <div className="flex justify-between items-center p-6 border-b border-gray-200/20">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900" id="modal-title">
+            <h2
+              className="text-2xl font-bold mb-2 text-gray-200 light:text-gray-900"
+              id="modal-title"
+            >
               Confirm Your Selection
             </h2>
-            <p className="text-gray-500">
+            <p className="text-gray-400">
               Please review the details for your chosen skip.
             </p>
           </div>
@@ -92,21 +95,21 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         {/* Body */}
         <div className="p-6 space-y-4">
           {/* Summary Details */}
-          <div className="grid grid-cols-3 text-center divide-x divide-gray-200 bg-gray-50 p-4 rounded-lg">
+          <div className="grid grid-cols-3 text-center divide-x divide-gray-200/10 bg-gray-200/20 p-4 rounded-lg">
             <div>
-              <p className="text-xs text-gray-500">Size</p>
-              <p className="font-bold text-lg text-gray-800">
+              <p className="text-xs text-gray-300">Size</p>
+              <p className="font-bold text-lg text-gray-200">
                 {skip.size} Yard
               </p>
             </div>
             <div>
-              <p className="text-xs text-gray-500">Hire Period</p>
-              <p className="font-bold text-lg text-gray-800">
+              <p className="text-xs text-gray-300">Hire Period</p>
+              <p className="font-bold text-lg text-gray-200">
                 {skip.hire_period_days} Days
               </p>
             </div>
             <div>
-              <p className="text-xs text-gray-500">Price (Inc. VAT)</p>
+              <p className="text-xs text-gray-300">Price (Inc. VAT)</p>
               <p className="font-bold text-lg text-green-600">
                 £{calculateTotalPrice(skip.price_before_vat, skip.vat)}
               </p>
@@ -115,10 +118,10 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
 
           {/* Important Restrictions */}
           <div>
-            <h3 className="font-semibold text-gray-800 mb-2">
+            <h3 className="font-semibold text-md text-gray-300 mb-2">
               Important Restrictions
             </h3>
-            <ul className="space-y-2 text-sm border border-gray-200 p-3 rounded-md">
+            <ul className="space-y-2 text-sm text-white/80 border border-gray-200 p-3 rounded-md">
               <li className="flex items-center gap-2">
                 {skip.allowed_on_road ? (
                   <CheckCircleIcon className="h-5 w-5 text-green-500" />
@@ -142,7 +145,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           <div>
             <button
               onClick={() => setIsDetailsOpen(!isDetailsOpen)}
-              className="w-full flex justify-between items-center text-left text-sm font-medium text-gray-600 hover:text-gray-900"
+              className="w-full flex justify-between items-center text-left text-md font-medium text-gray-300 hover:text-gray-900"
             >
               <span>Important Information</span>
               <ChevronDownIcon
@@ -156,7 +159,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
                 isDetailsOpen ? "max-h-40" : "max-h-0"
               }`}
             >
-              <p className="p-3 bg-gray-50 rounded-md">
+              <p className="p-3 bg-gray-300/10 text-white/90 rounded-md">
                 Images are for illustration purposes only. Exact specifications
                 and included accessories may vary. All pricing and restrictions
                 are subject to our terms and conditions.
@@ -166,7 +169,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         </div>
 
         {/* Footer with Actions */}
-        <div className="p-4 bg-gray-50 border-t border-gray-200 flex justify-end gap-3 rounded-b-xl">
+        <div className="p-4  border-t border-gray-200/10 flex justify-end gap-3 rounded-b-xl">
           <button
             onClick={onClose}
             className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"

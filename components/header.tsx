@@ -4,8 +4,6 @@ import { CheckIcon, CheckCircleIcon } from "@heroicons/react/24/solid"; // Using
 import { processSteps } from "app/constants/index";
 
 const Header = () => {
-  // In a real app, this would come from your router (e.g., useLocation)
-  // For this example, let's hardcode the current step to "Select Skip"
   const currentStepId = "select-skip";
 
   const currentStepIndex = processSteps.findIndex(
@@ -25,7 +23,7 @@ const Header = () => {
   return (
     <nav
       aria-label="Progress"
-      className="w-full py-4 px-4 bg-gray-100 border-b border-gray-200"
+      className="w-full py-4 px-4 bg-[#191a1a] text-gray-300 border-b-gray-600 light:bg-gray-100 border-b light:border-gray-200"
     >
       {/* ------------------ MOBILE VIEW (Compact Stepper) ------------------ */}
       {/* This entire div is hidden on medium screens and up (md:hidden) */}
@@ -67,7 +65,7 @@ const Header = () => {
         {/* Label for the Current Step */}
         {currentStepData && (
           <div className="mt-3">
-            <p className="text-xs text-gray-500 font-medium">
+            <p className="text-xs text-gray-300 font-medium">
               STEP {currentStepIndex + 1} OF {processSteps.length}
             </p>
             <p className="text-base font-bold text-gray-800">

@@ -2,20 +2,20 @@ import { categoryData } from "~/constants";
 
 const SkipSizeGuide = () => {
   return (
-    <section className="w-full bg-white">
+    <section className="w-full">
       <div className="max-w-8xl mx-4 py-2 px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
           {categoryData.map((category) => (
             <div
               key={category.name}
-              className="flex flex-col bg-gray-50 border border-gray-200 rounded-lg shadow-sm overflow-hidden transform transition-transform hover:scale-105 hover:shadow-lg"
+              className="flex flex-col bg-[#303030] border-[#202222] light:bg-gray-50 border light:border-gray-200 rounded-lg shadow-sm overflow-hidden transform transition-transform hover:scale-105 hover:shadow-lg"
             >
               {/* --- Card Header Section --- */}
-              <div className="flex justify-between items-baseline bg-gray-100 p-4 border-b border-gray-200">
+              <div className="flex justify-between items-baseline  light:bg-gray-100 p-4 border-b border-gray-700">
                 <p className="font-mono text-sm text-blue-600">
                   {category.range}
                 </p>
-                <h3 className="text-lg font-bold text-gray-900">
+                <h3 className="text-md font-semibold text-gray-100">
                   {category.name}
                 </h3>
               </div>
@@ -31,12 +31,12 @@ const SkipSizeGuide = () => {
                 </div>
 
                 {/* Metric */}
-                <p className="mt-4 font-semibold text-lg text-gray-700">
+                <p className="mt-4 font-semibold text-sm text-gray-400">
                   {category.metric}
                 </p>
 
                 {/* Description */}
-                <p className="mt-2 text-sm font-light text-gray-600">
+                <p className="mt-2 text-[12px] font-light text-gray-300">
                   {category.description}
                 </p>
               </div>

@@ -79,7 +79,7 @@ const SkipOptions: React.FC = () => {
 
   return (
     <>
-      <section id="skip-options" className="w-full bg-gray-50 mt-2">
+      <section id="skip-options" className="w-full light:bg-gray-50 mt-2">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* --- CHANGE IS HERE --- */}
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -89,17 +89,17 @@ const SkipOptions: React.FC = () => {
               return (
                 <div
                   key={skip.id}
-                  className="flex flex-col bg-white rounded-lg shadow-lg border border-gray-200"
+                  className="flex flex-col bg-[#303030] light:bg-white rounded-lg shadow-lg border border-[#303030] light:border-gray-200"
                 >
                   <div className="flex-grow flex flex-col p-6">
                     {/* 1. Card Header: Size and Info Icon */}
                     <div className="flex justify-between items-center">
-                      <h3 className="text-xl font-bold text-gray-900">
+                      <h3 className="text-md font-semibold text-gray-300">
                         {skip.size} Yard Skip
                       </h3>
                       <div className="relative group">
                         <ExclamationTriangleIcon className="h-6 w-6 text-amber-500 cursor-pointer" />
-                        <div className="absolute hidden group-hover:block bottom-full right-0 mb-2 w-max bg-gray-800 text-white text-sm rounded-md shadow-lg p-3 z-10">
+                        <div className="absolute hidden group-hover:block bottom-full right-0 mb-2 w-max bg-[#202222] text-white text-sm rounded-md shadow-lg p-3 z-10">
                           <div>
                             <h1 className="mb-2 font-bold">
                               Important Restrictions :
@@ -129,56 +129,71 @@ const SkipOptions: React.FC = () => {
                     </div>
 
                     {/* 2. Skip Image Placeholder */}
-                    <img
-                      className="w-full h-48 my-2 lg:object-contain object-cover rounded-md"
-                      src={"/skip_img.jpg"}
-                      alt={`${skip.size} Yard Skip`}
-                    />
+                    <div className="w-full">
+                      <img
+                        className="w-full h-48 my-2 lg:object-contain object-cover rounded-md"
+                        src={
+                          skip.size >= 20
+                            ? "/skip_large_img.jpg"
+                            : "/skip_img.jpg"
+                        }
+                        alt={`${skip.size} Yard Skip`}
+                      />
+                    </div>
 
                     {/* 3 & 4. Details Grid: Hire Period & Capacity */}
-                    <div className="flex-col gap-4 text-start">
-                      <div>
-                        <div className="flex justify-start items-center gap-2 text-gray-500">
+                    <div className="flex-col  text-start">
+                      <div className="flex justify-start items-center">
+                        <div className="flex justify-start items-center gap-1 text-gray-300">
                           <CalendarDaysIcon className="h-4 w-4" />
-                          <span className="text-sm font-medium">
-                            Hire Period
+                          <span className="text-sm font-normal md:text-xs">
+                            Hire Period :
                           </span>
                         </div>
-                        <p className="mt-1 ml-4 text-md font-bold text-gray-800">
-                          {skip.hire_period_days} Days
-                        </p>
+                        <div className="flex items-center text-center">
+                          {" "}
+                          <p className="mt-1 ml-1 text-sm font-semibold text-gray-300/60 lg:text-xs">
+                            {skip.hire_period_days} Days
+                          </p>
+                        </div>
                       </div>
                       <div>
-                        <div className="flex mt-1 justify-start items-center gap-2 text-gray-500">
-                          <ArchiveBoxIcon className="h-4 w-4" />
-                          <span className="text-sm font-medium">Capacity</span>
+                        <div className="flex justify-start items-center">
+                          <div className="flex mt-1 justify-start items-center gap-1 text-gray-300">
+                            <ArchiveBoxIcon className="h-4 w-4" />
+                            <span className="text-sm font-normal md:text-xs">
+                              Capacity :
+                            </span>
+                          </div>
+                          <div>
+                            {" "}
+                            <p className="mt-1 ml-1 text-sm font-semibold text-gray-300/60 lg:text-xs">
+                              {getCapacity(skip.size)}
+                            </p>
+                          </div>
                         </div>
-                        <p className="mt-1 ml-4 text-sm font-bold text-gray-800">
-                          {getCapacity(skip.size)}
-                        </p>
                       </div>
                     </div>
 
                     {/* 5. Price Section */}
                     <div className="mt-2 text-center">
-                      <p className="text-2xl font-extrabold text-gray-900">
+                      <p className="text-xl font-extrabold text-gray-200">
                         £{calculateTotalPrice(skip.price_before_vat, skip.vat)}
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs mt-1 text-gray-300/70">
                         Total Price (Inc. VAT)
                       </p>
                     </div>
 
                     {/* 6. Action Button (pushed to the bottom) */}
-                    <div className="mt-auto pt-4">
+                    <div className="mt-auto">
                       <button
-                        className={`w-full font-bold py-3 px-2 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+                        className={`w-full font-semibold py-2 px-2 mt-2 rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
                           isSelected
                             ? "bg-blue-600 text-white cursor-not-allowed focus:ring-blue-500" // Style for the selected button
                             : "border-2 border-blue-500 text-blue-500 hover:bg-blue-700 hover:text-white focus:ring-blue-500" // Default style
                         }`}
                         onClick={() => setSelectedSkip(skip)}
-                        // Disable the button when it's selected to prevent re-opening the modal
                         disabled={isSelected}
                       >
                         {isSelected ? (
