@@ -68,7 +68,7 @@ const Header = () => {
             <p className="text-xs text-gray-300 font-medium">
               STEP {currentStepIndex + 1} OF {processSteps.length}
             </p>
-            <p className="text-base font-bold text-gray-800">
+            <p className="text-base font-bold text-gray-300">
               {currentStepData.label}
             </p>
           </div>
