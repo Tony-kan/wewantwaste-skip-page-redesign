@@ -85,6 +85,8 @@ const SkipOptions: React.FC = () => {
           <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {skips.map((skip) => {
               const isSelected = selectedSkip?.id === skip.id;
+              const hasRestrictions =
+                !skip.allowed_on_road || !skip.allows_heavy_waste;
 
               return (
                 <div
@@ -97,35 +99,37 @@ const SkipOptions: React.FC = () => {
                       <h3 className="text-md font-semibold text-gray-300">
                         {skip.size} Yard Skip
                       </h3>
-                      <div className="relative group">
-                        <ExclamationTriangleIcon className="h-6 w-6 text-amber-500 cursor-pointer" />
-                        <div className="absolute hidden group-hover:block bottom-full right-0 mb-2 w-max bg-[#202222] text-white text-sm rounded-md shadow-lg p-3 z-10">
-                          <div>
-                            <h1 className="mb-2 font-bold">
-                              Important Restrictions :
-                            </h1>
+                      {hasRestrictions && (
+                        <div className="relative group">
+                          <ExclamationTriangleIcon className="h-6 w-6 text-amber-500 cursor-pointer" />
+                          <div className="absolute hidden group-hover:block bottom-full right-0 mb-2 w-max bg-[#202222] text-white text-sm rounded-md shadow-lg p-3 z-10">
+                            <div>
+                              <h1 className="mb-2 font-bold">
+                                Important Restrictions :
+                              </h1>
+                            </div>
+                            <ul className="space-y-2">
+                              <li className="flex items-center gap-2">
+                                {skip.allowed_on_road ? (
+                                  <CheckCircleIcon className="h-5 w-5 text-green-400" />
+                                ) : (
+                                  <XCircleIcon className="h-5 w-5 text-red-400" />
+                                )}
+                                <span>Placeable on public roads</span>
+                              </li>
+                              <li className="flex items-center gap-2">
+                                {skip.allows_heavy_waste ? (
+                                  <CheckCircleIcon className="h-5 w-5 text-green-400" />
+                                ) : (
+                                  <XCircleIcon className="h-5 w-5 text-red-400" />
+                                )}
+                                <span>Allows heavy waste (soil/rubble)</span>
+                              </li>
+                            </ul>
+                            <div className="absolute right-2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-gray-800"></div>
                           </div>
-                          <ul className="space-y-2">
-                            <li className="flex items-center gap-2">
-                              {skip.allowed_on_road ? (
-                                <CheckCircleIcon className="h-5 w-5 text-green-400" />
-                              ) : (
-                                <XCircleIcon className="h-5 w-5 text-red-400" />
-                              )}
-                              <span>Placeable on public roads</span>
-                            </li>
-                            <li className="flex items-center gap-2">
-                              {skip.allows_heavy_waste ? (
-                                <CheckCircleIcon className="h-5 w-5 text-green-400" />
-                              ) : (
-                                <XCircleIcon className="h-5 w-5 text-red-400" />
-                              )}
-                              <span>Allows heavy waste (soil/rubble)</span>
-                            </li>
-                          </ul>
-                          <div className="absolute right-2 top-full w-0 h-0 border-x-8 border-x-transparent border-t-8 border-t-gray-800"></div>
                         </div>
-                      </div>
+                      )}
                     </div>
 
                     {/* 2. Skip Image Placeholder */}
